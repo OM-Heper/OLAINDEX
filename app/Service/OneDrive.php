@@ -80,7 +80,7 @@ class OneDrive
         $host = $sp['host'];
         $path = $sp['path'];
         $query = "/sites/{$host}:$path";
-        $resp = $this->_request('get', $query);
+        $resp = $this->makeRequest('get', $query);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -92,7 +92,7 @@ class OneDrive
     public function fetchInfo()
     {
         $query = '/me/drive';
-        $resp = $this->_request('get', $query);
+        $resp = $this->makeRequest('get', $query);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -104,7 +104,7 @@ class OneDrive
     public function fetchMe()
     {
         $query = '/me';
-        $resp = $this->_request('get', $query);
+        $resp = $this->makeRequest('get', $query);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -120,12 +120,12 @@ class OneDrive
     {
         $trans = trans_request_path($query, true, false);
         $query = "/me/drive/root{$trans}children";
-        $resp = $this->_request('get', $query, ['isList' => true, 'params' => $params]);
+        $resp = $this->makeRequest('get', $query, ['isList' => true, 'params' => $params]);
         if ($chuck) {
             $err = $resp->getError();
             return $err ?? $resp->getBody();
         }
-        return $this->_requestNextLink($resp);
+        return $this->fetchNextLink($resp);
     }
 
     /**
@@ -138,12 +138,12 @@ class OneDrive
     public function fetchListById($id, $params = [], $chuck = false): array
     {
         $query = "/me/drive/items/{$id}/children";
-        $resp = $this->_request('get', $query, ['isList' => true, 'params' => $params]);
+        $resp = $this->makeRequest('get', $query, ['isList' => true, 'params' => $params]);
         if ($chuck) {
             $err = $resp->getError();
             return $err ?? $resp->getBody();
         }
-        return $this->_requestNextLink($resp);
+        return $this->fetchNextLink($resp);
     }
 
     /**
@@ -155,7 +155,7 @@ class OneDrive
     {
         $trans = trans_request_path($query, true, true);
         $query = "/me/drive/root{$trans}";
-        $resp = $this->_request('get', $query, ['params' => ['expand' => 'thumbnails']]);
+        $resp = $this->makeRequest('get', $query, ['params' => ['expand' => 'thumbnails']]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -168,7 +168,7 @@ class OneDrive
     public function fetchItemById($id)
     {
         $query = "/me/drive/items/{$id}";
-        $resp = $this->_request('get', $query, ['params' => ['expand' => 'thumbnails']]);
+        $resp = $this->makeRequest('get', $query, ['params' => ['expand' => 'thumbnails']]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -183,8 +183,8 @@ class OneDrive
     {
         $trans = trans_request_path($query, true, false);
         $query = "/me/drive/root{$trans}search(q='{$keyword}')";
-        $resp = $this->_request('get', $query, ['isList' => true]);
-        return $this->_requestNextLink($resp);
+        $resp = $this->makeRequest('get', $query, ['isList' => true]);
+        return $this->fetchNextLink($resp);
     }
 
     /**
@@ -211,7 +211,7 @@ class OneDrive
         if ($fileName) {
             $body = array_add($body, 'name', $fileName);
         }
-        $resp = $this->_request('post', $query, ['body' => $body]);
+        $resp = $this->makeRequest('post', $query, ['body' => $body]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -234,7 +234,7 @@ class OneDrive
         if ($fileName) {
             $body = array_add($body, 'name', $fileName);
         }
-        $resp = $this->_request('patch', $query, ['body' => $body]);
+        $resp = $this->makeRequest('patch', $query, ['body' => $body]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -249,7 +249,7 @@ class OneDrive
     {
         $query = "/me/drive/items/{$target_id}/children";
         $body = '{"name":"' . $fileName . '","folder":{},"@microsoft.graph.conflictBehavior":"rename"}';
-        $resp = $this->_request('post', $query, ['body' => $body]);
+        $resp = $this->makeRequest('post', $query, ['body' => $body]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -267,7 +267,7 @@ class OneDrive
         if ($eTag) {
             $headers = ['if-match' => $eTag];
         }
-        $resp = $this->_request('delete', $query, ['headers' => $headers]);
+        $resp = $this->makeRequest('delete', $query, ['headers' => $headers]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -281,7 +281,7 @@ class OneDrive
     public function fetchThumbnails($id, $size = 'large')
     {
         $query = "/me/drive/items/{$id}/thumbnails/0/{$size}";
-        $resp = $this->_request('get', $query);
+        $resp = $this->makeRequest('get', $query);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -296,7 +296,7 @@ class OneDrive
     {
         $trans = trans_request_path($query, true, false);
         $query = "/me/drive/root{$trans}content";
-        $resp = $this->_request('put', $query, ['body' => $content]);
+        $resp = $this->makeRequest('put', $query, ['body' => $content]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -310,7 +310,7 @@ class OneDrive
     public function uploadById($id, $content)
     {
         $query = "/me/drive/items/{$id}/content";
-        $resp = $this->_request('put', $query, ['body' => $content]);
+        $resp = $this->makeRequest('put', $query, ['body' => $content]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -325,7 +325,7 @@ class OneDrive
     public function uploadByParentId($parentId, $filename, $content)
     {
         $query = "/me/drive/items/{$parentId}:/{$filename}:/content";
-        $resp = $this->_request('put', $query, ['body' => $content]);
+        $resp = $this->makeRequest('put', $query, ['body' => $content]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -340,7 +340,7 @@ class OneDrive
                 'name' => $filename,
             ],
         ];
-        $resp = $this->_request('post', $query, ['body' => $body]);
+        $resp = $this->makeRequest('post', $query, ['body' => $body]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -354,7 +354,7 @@ class OneDrive
     {
         $query = "/me/drive/items/{$id}/createLink";
         $body = ['type' => 'view', 'scope' => 'anonymous'];
-        $resp = $this->_request('post', $query, ['body' => $body]);
+        $resp = $this->makeRequest('post', $query, ['body' => $body]);
         $err = $resp->getError();
         return $err ?? $resp->getBody();
     }
@@ -431,7 +431,7 @@ class OneDrive
      * @param array $result
      * @return array
      */
-    private function _requestNextLink($response, &$result = []): array
+    private function fetchNextLink($response, &$result = []): array
     {
         if (null !== $response->getError()) {
             return $result;
@@ -445,8 +445,8 @@ class OneDrive
             $baseLength = strlen($response->getRequest()->getBaseUrl());
             $query = substr($nextLink, $baseLength);
             $params = parse_query(parse_url($nextLink)['query']);
-            $resp = $this->_request('GET', $query, ['params' => $params, 'isList' => true]);
-            $result = $this->_requestNextLink($resp, $data);
+            $resp = $this->makeRequest('GET', $query, ['params' => $params, 'isList' => true]);
+            $result = $this->fetchNextLink($resp, $data);
         }
         return $result;
     }
@@ -458,7 +458,7 @@ class OneDrive
      * @param array $options
      * @return GraphResponse|false|\Microsoft\Graph\Http\GraphResponse|mixed|string|null
      */
-    private function _request($method = 'GET', $query = '', $options = [])
+    private function makeRequest($method = 'GET', $query = '', $options = [])
     {
         if ($this->sharepoint && str_start($query, '/me')) {
             $query = '/sites/' . $this->sharepoint . str_after($query, '/me');
