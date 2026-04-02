@@ -359,6 +359,8 @@ if (!function_exists('marked')) {
      */
     function marked($text)
     {
-        return Parsedown::instance()->text($text);
+        $parser = Parsedown::instance();
+        $parser->setSafeMode(true); // Filter dangerous HTML tags
+        return $parser->text($text);
     }
 }

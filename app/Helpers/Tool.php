@@ -53,6 +53,7 @@ class Tool
     public static function markdown2Html($markdown, $line = false): string
     {
         $parser = new Parsedown();
+        $parser->setSafeMode(true); // Filter dangerous HTML tags
         if (!$line) {
             $html = $parser->text($markdown);
         } else {
