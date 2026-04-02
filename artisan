@@ -1,6 +1,13 @@
 #!/usr/bin/env php
 <?php
 
+// Shield PHP 8.4+ deprecation warnings (Laravel 8 is not fully compatible)
+// Set REPORT_DEPRECATIONS=true in .env to see warnings during development
+$envFile = __DIR__ . '/.env';
+if (!file_exists($envFile) || strpos(file_get_contents($envFile), 'REPORT_DEPRECATIONS=true') === false) {
+    error_reporting(error_reporting() & ~E_DEPRECATED);
+}
+
 define('LARAVEL_START', microtime(true));
 
 /*

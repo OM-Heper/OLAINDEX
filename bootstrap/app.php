@@ -2,6 +2,21 @@
 
 /*
 |--------------------------------------------------------------------------
+| Shield Deprecation Warnings (PHP 8.4+)
+|--------------------------------------------------------------------------
+|
+| Laravel 8 is not fully compatible with PHP 8.4+. This shields
+| deprecation warnings in production. Set REPORT_DEPRECATIONS=true
+| in .env to see warnings during development.
+|
+*/
+$reportDeprecations = getenv('REPORT_DEPRECATIONS');
+if ($reportDeprecations !== 'true') {
+    error_reporting(error_reporting() & ~E_DEPRECATED);
+}
+
+/*
+|--------------------------------------------------------------------------
 | Create The Application
 |--------------------------------------------------------------------------
 |

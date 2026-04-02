@@ -16,7 +16,7 @@
 */
 return [
     'api' => [
-        'allow_list' => explode(',', env('API_ALLOW'))
+        'allow_list' => explode(',', env('API_ALLOW', ''))
     ],
     'proxy' => env('PROXY', '')
 ];
