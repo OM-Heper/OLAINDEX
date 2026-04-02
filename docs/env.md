@@ -1,4 +1,6 @@
-**PHP 扩展要求**
+# 环境要求
+
+## PHP 扩展要求
 
 - PHP >= 7.4
 - PHP OpenSSL 扩展
@@ -9,48 +11,60 @@
 - PHP Ctype 扩展
 - PHP JSON 扩展
 - PHP BCMath 扩展
-- PHP Fileinfo 扩展 *
+- PHP Fileinfo 扩展 ⚠️
 
-**Laravel 文件系统模块要求，为保证成功安装，建议安装 `PHP Fileinfo 扩展` **
+> ⚠️ **Laravel 文件系统模块要求**：为保证成功安装，建议安装 `PHP Fileinfo 扩展`
 
-推荐使用 oneinstack 安装php环境 [https://oneinstack.com/auto](https://oneinstack.com/auto)
+## 推荐环境安装
 
-可以根据需要安装扩展，具体扩展安装请参考官方文档。
+推荐使用 [oneinstack](https://oneinstack.com/auto) 安装 PHP 环境。
 
-最低安装标准 `nginx+php`
+### 一键安装 Nginx + PHP
 
-![image.png](https://i.loli.net/2018/10/27/5bd46cbf4efe3.png)
-
-使用一下命令即可自动安装 `nginx+php`
-
-```
+```bash
 wget http://mirrors.linuxeye.com/oneinstack-full.tar.gz && tar xzf oneinstack-full.tar.gz && ./oneinstack/install.sh --nginx_option 1 --php_option 7 --phpcache_option 1 --reboot
 ```
 
-**oneinstack安装fileinfo扩展**
+### 安装 Fileinfo 扩展
 
-![image.png](https://i.loli.net/2018/11/18/5bf155d4455b5.png)
+如果使用 oneinstack，可以通过以下步骤安装 fileinfo 扩展：
 
-![image.png](https://i.loli.net/2018/11/18/5bf155607859a.png)
+1. 进入 oneinstack 目录
+2. 执行 `./addons.sh`
+3. 选择安装 fileinfo 扩展
 
-**注意：**
+## PHP 函数配置
 
-OLAINDEX 基于 `Laravel` 安装需要开启禁用的几个函数方法，步骤如下：
+OLAINDEX 基于 Laravel 框架，需要开启部分被禁用的函数。
 
-oneinstack php安装路径 `/usr/local/php/etc/php.ini`
+### oneinstack 环境
 
+PHP 配置文件路径：`/usr/local/php/etc/php.ini`
+
+找到 `disable_functions=` 配置项，删除以下函数：
+
+- `proc_open`
+- `proc_get_status`
+- `putenv`
+
+```bash
+# 重启 PHP-FPM
+sudo service php-fpm restart
 ```
-1、进入php.ini文件，找到disable_function=，删除proc_open函数，即可。
-2、进入php.ini文件，找到disable_function=，删除proc_get_status函数，即可。
-3、进入php.ini文件，找到disable_function=，删除putenv函数，即可。
-4、sudo service php-fpm restart # 重启 php 进程
+
+## Composer 安装
+
+Composer 是 PHP 的包管理器，安装步骤如下：
+
+```bash
+# 下载 Composer
+curl -sS https://getcomposer.org/installer | php
+
+# 全局安装
+mv composer.phar /usr/local/bin/composer
+
+# 更换为国内镜像（国内服务器推荐）
+composer config -g repo.packagist composer https://mirrors.aliyun.com/composer
 ```
 
-另外使用composer包管理器， 需要下载 composer 并且全局处理，步骤如下：
-
-```
-1、curl -sS https://getcomposer.org/installer | php  
-2、mv composer.phar /usr/local/bin/composer 
-3、composer config -g repo.packagist composer https://mirrors.aliyun.com/composer # 更换源为国内源，国外服务器可忽略此步骤
-```
-
+> 💡 **提示**：国外服务器无需更换镜像源

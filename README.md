@@ -1,102 +1,85 @@
 # OLAINDEX
 
-✨ Another OneDrive Directory Index.
+✨ Another OneDrive Directory Index
 
 [![Latest Stable Version](https://poser.pugx.org/wangningkai/olaindex/v/stable)](https://packagist.org/packages/wangningkai/olaindex)
-[![Latest Unstable Version](https://poser.pugx.org/wangningkai/olaindex/v/unstable)](//packagist.org/packages/wangningkai/olaindex)
 [![GitHub stars](https://img.shields.io/github/stars/WangNingkai/OLAINDEX.svg?style=flat-square)](https://github.com/WangNingkai/OLAINDEX/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/WangNingkai/OLAINDEX.svg?style=flat-square)](https://github.com/WangNingkai/OLAINDEX/network)
 [![GitHub license](https://img.shields.io/github/license/WangNingkai/OLAINDEX.svg?style=flat-square)](https://github.com/WangNingkai/OLAINDEX/blob/master/LICENSE)
-![visitors](https://visitor-badge.laobi.icu/badge?page_id=WangNingkai.OLAINDEX)
 
-> **[中文README](./README_CN.md)**
+> **[中文说明](README_CN.md)**
 
 ## Introduction
 
-A simple, full-featured OneDrive directory index web app, Built on top of the Laravel framework. Using
-the `Microsoft Graph API` present content,support multiple accounts,multiple themes.
+OLAINDEX is a sleek OneDrive directory index application built on Laravel framework, powered by Microsoft Graph API. It supports multiple account types, various themes, and rich file preview capabilities.
 
 ## Features
 
-- OneDrive directory index
-- Support for different types of resources preview
-- support multiple accounts
+- 📁 OneDrive directory indexing with clean UI
+- 👁️ Rich file preview (images, videos, audio, code, documents)
+- 🔐 Password-protected directories & hidden paths
+- 🔍 In-directory search (no API calls needed)
+- 🔗 Short URL sharing mode
+- 🚀 Resource preloading for faster access
+- 🎨 Multiple themes (default Bootstrap & Material Design)
+- 👥 Multi-account support
 
-## Project address
+## Quick Start
 
-- [OLAINDEX](https://github.com/WangNingkai/OLAINDEX)
+```bash
+# Clone repository
+git clone https://github.com/WangNingkai/OLAINDEX.git
+cd OLAINDEX
+
+# Install dependencies
+composer install
+
+# Initialize application
+composer run install-app
+
+# Set permissions
+chmod -R 755 storage
+chown -R www:www *
+```
+
+## Requirements
+
+- PHP >= 7.4
+- OpenSSL, PDO, Mbstring, Tokenizer, XML, Ctype, JSON, BCMath, Fileinfo extensions
+- Composer
+
+## Documentation
+
+Full documentation available at: [https://wangningkai.github.io/OLAINDEX](https://wangningkai.github.io/OLAINDEX)
+
+- [Environment Requirements](https://wangningkai.github.io/OLAINDEX/#/env)
+- [Installation Guide](https://wangningkai.github.io/OLAINDEX/#/install)
+- [Account Setup](https://wangningkai.github.io/OLAINDEX/#/apply)
+- [Configuration](https://wangningkai.github.io/OLAINDEX/#/other)
+- [API Reference](https://wangningkai.github.io/OLAINDEX/#/api)
+- [FAQ](https://wangningkai.github.io/OLAINDEX/#/question)
 
 ## Demo
 
 - [https://demo.olaindex.com](https://demo.olaindex.com)
 
-## Preview
-
 ![Preview](https://ojpoc641y.qnssl.com/FpR4_obUhswLJXCEBgKOV4Pz7qg3.png)
 
-## Installation
+## Support
 
-> This project is base of the Laravel framework，Please refer to the relevant documentation.
-
-[Documentation](https://wangningkai.github.io/OLAINDEX)
-
-```bash
-
-cd web-project
-git clone https://github.com/WangNingkai/OLAINDEX.git tmp 
-mv tmp/.git . 
-rm -rf tmp 
-git reset --hard 
-composer install -vvv  # Install Dependencies
-chmod -R 777 storage # Important！！！Ensure that the cache directory has read and write permissions
-chown -R www:www * # this 'www' refer to the serve user group
-composer run install-app # installation app
-
-```
-
-## Bug report
-
-> Please read before bug report[《How To Ask Questions The Smart Way》](http://www.catb.org/~esr/faqs/smart-questions.html)
-
-4 way to bug report：
-
-1. [GitHub issue](https://github.com/WangNingkai/OLAINDEX/issues)
-2. [GitHub discussions](https://github.com/WangNingkai/OLAINDEX/discussions)
-3. [My Blog](https://imwnk.cn)
-4. [i@ningkai.wang](mailto:i@ningkai.wang)
-
-### Notes
-
-1. OLAINDEX Command Line Version.Project Address [OLAINDEX-CMD](https://git.io/OLACMD)
-
-2. This software is only for daily study and should not be used for any commercial purposes. Please abide by the laws of
-   your country. Any illegal behavior is the responsibility of the user.
-
-3. If you use this application, please try to keep the copyright at the bottom and share it with more people.Thanks.
-
-### :sparkling_heart: Support the project
-
-I open-source almost everything I can, and I try to reply to everyone needing help using these projects. Obviously, this
-takes time. You can use this service for free.
-
-However, if you are using this project and happy with it or just want to encourage me to continue creating stuff, there
-are few ways you can do it :-
-
-- Starring and sharing the project :rocket:
-- [![paypal.me/wangningkai](https://ionicabizau.github.io/badges/paypal.svg)](https://www.paypal.me/wangningkai) - You
-  can make one-time donations via PayPal. I'll probably buy a ~~coffee~~ tea. :tea:
-- [Wechat & AliPay](https://pay.ningkai.wang)
-
-Thanks! :heart:
+- 📝 [GitHub Issues](https://github.com/WangNingkai/OLAINDEX/issues) - Bug reports
+- 💬 [GitHub Discussions](https://github.com/WangNingkai/OLAINDEX/discussions) - Questions & ideas
+- 📧 [i@ningkai.wang](mailto:i@ningkai.wang) - Email contact
 
 ## License
 
-The OLAINDEX is open-source software licensed under the MIT license.
+OLAINDEX is open-source software licensed under the [MIT license](LICENSE).
 
-## Stargazers over time
+## Acknowledgments
 
-[![Star History Chart](https://api.star-history.com/svg?repos=wangningkai/olaindex&type=Date)](https://star-history.com/#wangningkai/olaindex&Date)
-
-## Thanks
+This project was inspired by [oneindex](https://github.com/donwa/oneindex).
 
 <a href="https://www.jetbrains.com/?from=OLAINDEX"><img src="https://user-images.githubusercontent.com/23030927/191397586-a30a6d12-578a-402d-8156-93c97651d084.png" height="120" alt="JetBrains"/></a>
+
+---
+
+Made with ❤️ and PHP

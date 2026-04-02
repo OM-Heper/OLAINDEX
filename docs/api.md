@@ -1,35 +1,36 @@
-!> 此文档待完善
+# 开放接口
 
-> 版本 v4.0 后，添加第三方访问接口，目前支持图床接口，以后会支持更多接口。
+> 版本 v4.0 后，添加第三方访问接口，目前支持图床接口，后续会支持更多接口。
 
-## 用法
+## 接口认证
 
-1. 后台设置第三方访问密钥 {access_token}
+### 设置访问密钥
 
-2. Header 头信息 添加认证信息 
+后台设置第三方访问密钥 `{access_token}`
 
-    `"Authorization":"Bearer {access_token}"`
+### 请求头认证
 
-3. 接口调用
-
-## 接口列表
-
-### 上传图床
-
-- 地址：{domain}/api/image
-
-- 访问方式： POST
-
-- 参数：
+在请求 Header 中添加认证信息：
 
 ```
-Content-Disposition: form-data; 
-name="olaindex_img"; 
-filename="onedrive.png"
-Content-Type: image/png
+Authorization: Bearer {access_token}
 ```
 
-- 返回参数：
+## 图床接口
+
+### 接口信息
+
+- **地址**：`{domain}/api/image`
+- **方法**：POST
+- **Content-Type**：`multipart/form-data`
+
+### 请求参数
+
+| 参数名 | 类型 | 必填 | 说明 |
+|--------|------|------|------|
+| olaindex_img | file | 是 | 图片文件 |
+
+### 返回示例
 
 ```json
 {
@@ -44,37 +45,43 @@ Content-Type: image/png
     }
 }
 ```
-- 举例
+
+### 返回字段说明
+
+| 字段 | 说明 |
+|------|------|
+| errno | 状态码，200 表示成功 |
+| data.id | 文件 ID |
+| data.filename | 文件名 |
+| data.size | 文件大小（字节） |
+| data.time | 上传时间 |
+| data.url | 图片访问地址 |
+| data.delete | 删除链接 |
+
+## 示例代码
+
+### PHP 示例
 
 ```php
 <?php
 
 $curl = curl_init();
 
-curl_setopt_array($curl, array(
-  CURLOPT_URL => "http://{domain}/api/image",
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_ENCODING => "",
-  CURLOPT_MAXREDIRS => 10,
-  CURLOPT_TIMEOUT => 30,
-  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-  CURLOPT_CUSTOMREQUEST => "POST",
-  CURLOPT_POSTFIELDS => "------WebKitFormBoundary7MA4YWxkTrZu0gW\r\nContent-Disposition: form-data; name=\"olaindex_img\"; filename=\"onedrive.png\"\r\nContent-Type: image/png\r\n\r\n\r\n------WebKitFormBoundary7MA4YWxkTrZu0gW--",
-  CURLOPT_HTTPHEADER => array(
-    "Accept: */*",
-    "Authorization: Bearer 123123",
-    "Cache-Control: no-cache",
-    "Connection: keep-alive",
-    "Content-Type: application/json",
-    "Host: 127.0.0.1:8000",
-    "Postman-Token: b09bec02-8905-4c8d-9476-79787df9da4c,bceb64fb-2208-45c7-81ab-b131eba1aaf0",
-    "User-Agent: PostmanRuntime/7.15.0",
-    "accept-encoding: gzip, deflate",
-    "cache-control: no-cache",
-    "content-length: 32524",
-    "content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW"
-  ),
-));
+curl_setopt_array($curl, [
+    CURLOPT_URL => "http://{domain}/api/image",
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "POST",
+    CURLOPT_POSTFIELDS => [
+        'olaindex_img' => new CURLFile('/path/to/image.png')
+    ],
+    CURLOPT_HTTPHEADER => [
+        "Authorization: Bearer {access_token}"
+    ],
+]);
 
 $response = curl_exec($curl);
 $err = curl_error($curl);
@@ -82,8 +89,26 @@ $err = curl_error($curl);
 curl_close($curl);
 
 if ($err) {
-  echo "cURL Error #:" . $err;
+    echo "cURL Error #:" . $err;
 } else {
-  echo $response;
+    echo $response;
 }
+```
+
+### JavaScript 示例
+
+```javascript
+const formData = new FormData();
+formData.append('olaindex_img', fileInput.files[0]);
+
+fetch('http://{domain}/api/image', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer {access_token}'
+    },
+    body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error('Error:', error));
 ```
