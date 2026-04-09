@@ -62,7 +62,7 @@
         integrity="sha384-gCMZcshYKOGRX9r6wbDrvF+TcCCswSHFucUzUPwka+Gr+uHgjlYvkABr95TCOz3A"
         crossorigin="anonymous"></script>
     <script src="https://cdn.staticfile.net/clipboard.js/2.0.6/clipboard.min.js"></script>
-    <script src="https://cdn.staticfile.net/axios/0.30.0/axios.min.js"></script>
+    <script src="https://cdn.staticfile.net/axios/0.3.1/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/store@2/dist/store.everything.min.js"></script>
     <script>
         const $ = mdui.$

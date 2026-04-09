@@ -117,7 +117,7 @@
                                     </a>
                                 @endauth
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                                             document.getElementById('logout-form').submit();">
                                     退出
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -153,7 +153,7 @@
     <script src="https://cdn.staticfile.net/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
     <script src="https://cdn.staticfile.net/fancybox/3.5.7/jquery.fancybox.min.js"></script>
     <script src="https://cdn.staticfile.net/clipboard.js/2.0.6/clipboard.min.js"></script>
-    <script src="https://cdn.staticfile.net/axios/0.30.0/axios.min.js"></script>
+    <script src="https://cdn.staticfile.net/axios/0.3.1/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.8.1/dist/sweetalert2.all.min.js"></script>
     <script>
         $(function () {
