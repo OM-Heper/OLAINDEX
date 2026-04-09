@@ -93,7 +93,7 @@
 <script src="{{ asset('tabler/dist/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('tabler/dist/libs/jquery/dist/jquery.slim.min.js') }}"></script>
 <script src="{{ asset('tabler/dist/js/tabler.min.js') }}"></script>
-<script src="https://cdn.staticfile.org/axios/0.21.0/axios.min.js"></script>
+<script src="https://cdn.staticfile.net/axios/0.30.0/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.8.1/dist/sweetalert2.all.min.js"></script>
 @stack('scripts')
 </body>
